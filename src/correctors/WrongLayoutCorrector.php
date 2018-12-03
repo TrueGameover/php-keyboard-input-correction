@@ -34,6 +34,9 @@ class WrongLayoutCorrector extends Corrector {
 
             case self::LANGUAGE_RU:
                 return mb_ereg_match('([а-яА-Я@.$+\-*!#%\^&()=<>\?]+)', $this->prepare($input, $encode));
+
+            case self::LANGUAGE_EN:
+                return mb_ereg_match('([a-zA-Z@.$+\-*!#%\^&()=<>\?]+)', $this->prepare($input, $encode));
         }
 
         return false;
