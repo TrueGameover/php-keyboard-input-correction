@@ -25,20 +25,22 @@ abstract class Corrector {
 
     /**
      * @param string $input
-     * @param int $language
+     * @param int $targetLanguage
+     * @param string $encode
      * @return bool
      * @throws \InvalidArgumentException
      */
-    abstract public function validate(string $input, int $language = self::LANGUAGE_RU): bool;
+    abstract public function validate(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): bool;
 
     /**
      * @param string $input
-     * @param int $language
+     * @param int $targetLanguage
+     * @param string $encode
      * @return string
      * @throws \InvalidArgumentException
      * @throws CorrectorException
      */
-    abstract public function correct(string $input, int $language = self::LANGUAGE_RU): string;
+    abstract public function correct(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): string;
 
     /**
      * Convert $input to utf8
@@ -46,9 +48,7 @@ abstract class Corrector {
      * @param string $sourceEncode
      * @return string source encode
      */
-    protected function prepare(string $input, string &$sourceEncode = ''): string {
-
-        $sourceEncode = mb_detect_encoding($input);
+    protected function prepare(string $input, string $sourceEncode = self::DEFAULT_ENCODE): string {
 
         return mb_convert_encoding($input, 'utf-8', $sourceEncode);
     }
@@ -78,6 +78,8 @@ abstract class Corrector {
      */
     protected function processChar(array &$conversionTable, string $char): string {
 
+        $ok = true;
+
         if( !array_key_exists($char, $conversionTable) ) {
 
             if( $this->throwUnknownSymbols ) {
@@ -85,9 +87,9 @@ abstract class Corrector {
                 throw new UnsupportedSymbolException($char);
             }
 
-            $char = '';
+            $ok = false;
         }
 
-        return !empty($char) ? $conversionTable[$char] : $char;
+        return $ok ? $conversionTable[$char] : $char;
     }
 }

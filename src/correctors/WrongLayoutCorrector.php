@@ -15,16 +15,18 @@ class WrongLayoutCorrector extends Corrector {
 
     /**
      * @param string $input
-     * @param int $language
+     * @param int $targetLanguage
+     * @param string $encode
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function validate(string $input, int $language = self::LANGUAGE_RU): bool {
+    public function validate(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): bool {
 
-        switch($language) {
+        switch($targetLanguage) {
 
             case self::LANGUAGE_RU:
-                return preg_match('/([а-яА-Я@\.$+-*!#%\^&()=/\\<>?]+)/ui', $this->prepare($input)) === 1;
+                //                return preg_match('/([а-яА-Я@\.$+-*!#%\^&()=\\/\\<>?]+)/ui', $this->prepare($input)) === 1;
+                return preg_match('/([а-я]+)/ui', $this->prepare($input, $encode)) === 1;
                 break;
         }
 
@@ -33,24 +35,25 @@ class WrongLayoutCorrector extends Corrector {
 
     /**
      * @param string $input
-     * @param int $language
+     * @param int $targetLanguage
+     * @param string $encode
      * @return string
      * @throws \KeyboardInputCorrection\exceptions\UnsupportedSymbolException
      * @throws \InvalidArgumentException
      * @throws CorrectorException
      */
-    public function correct(string $input, int $language = self::LANGUAGE_RU): string {
+    public function correct(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): string {
 
-        if( !$this->validate($input, $language) ) {
+        if( !$this->validate($input, $targetLanguage) ) {
 
-            $table = $this->getConversionTable(self::LANGUAGE_EN, self::LANGUAGE_RU);
-            $input = $this->prepare($input, $sourceEncode);
-            $size = mb_strlen($input, self::DEFAULT_ENCODE);
+            $table = $this->getConversionTable(self::LANGUAGE_EN, $targetLanguage);
+            $input = $this->prepare($input, $encode);
+            $size = mb_strlen($input, $encode);
             $result = '';
 
             for( $i = 0; $i < $size; $i++ ) {
 
-                $char = mb_convert_case(mb_substr($input, $i, 1, self::DEFAULT_ENCODE), MB_CASE_LOWER, self::DEFAULT_ENCODE);
+                $char = mb_convert_case(mb_substr($input, $i, 1, $encode), MB_CASE_LOWER, $encode);
 
                 if( $char ) {
 
@@ -58,7 +61,7 @@ class WrongLayoutCorrector extends Corrector {
                 }
             }
 
-            return $this->finish($result, $sourceEncode);
+            return $this->finish($result, $encode);
         }
 
         return $input;
@@ -86,7 +89,8 @@ class WrongLayoutCorrector extends Corrector {
                             ']' => 'ъ',
                             'a' => 'ф',
                             's' => 'ы',
-                            'd' => 'а',
+                            'd' => 'в',
+                            'f' => 'а',
                             'g' => 'п',
                             'h' => 'р',
                             'j' => 'о',
