@@ -22,4 +22,11 @@ class KeyboardInputCorrectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('йцукенгшщзхъфывапролджэячсмитьбю.', $corrector->correct('qwertyuiop[]asdfghjkl;\'zxcvbnm,./'));
         $this->assertEquals('Ё!"№;%:?*()_+', $corrector->correct('~!@#$%^&*()_+'));
     }
+
+    public function testValidation() {
+
+        $corrector = new \KeyboardInputCorrection\correctors\WrongLayoutCorrector();
+
+        $this->assertTrue($corrector->validate('привет', \KeyboardInputCorrection\Corrector::LANGUAGE_RU));
+    }
 }
