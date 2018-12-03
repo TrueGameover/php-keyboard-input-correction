@@ -92,4 +92,14 @@ abstract class Corrector {
 
         return $ok ? $conversionTable[$char] : $char;
     }
+
+    public function isEncodeSupported(string $encode): bool {
+
+        $encodes = array_filter(mb_list_encodings(), function($item) use ($encode) {
+
+            return mb_convert_case($item, MB_CASE_LOWER) === $encode || mb_convert_case($item, MB_CASE_UPPER);
+        });
+
+        return \count($encodes) > 0;
+    }
 }

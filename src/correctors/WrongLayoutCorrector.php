@@ -22,12 +22,17 @@ class WrongLayoutCorrector extends Corrector {
      */
     public function validate(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): bool {
 
+        if( $encode !== self::DEFAULT_ENCODE && !$this->isEncodeSupported($encode) ) {
+
+            throw new \InvalidArgumentException($encode . ' unknown');
+        }
+
+        mb_regex_encoding($encode);
+
         switch($targetLanguage) {
 
             case self::LANGUAGE_RU:
-                //                return preg_match('/([а-яА-Я@\.$+-*!#%\^&()=\\/\\<>?]+)/ui', $this->prepare($input)) === 1;
-                return preg_match('/([а-я]+)/ui', $this->prepare($input, $encode)) === 1;
-                break;
+                return mb_ereg_match('([а-яА-Я@.$+\-*!#%\^&()=<>\?]+)', $this->prepare($input, $encode));
         }
 
         return false;
@@ -43,6 +48,11 @@ class WrongLayoutCorrector extends Corrector {
      * @throws CorrectorException
      */
     public function correct(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): string {
+
+        if( $encode !== self::DEFAULT_ENCODE && !$this->isEncodeSupported($encode) ) {
+
+            throw new \InvalidArgumentException($encode . ' unknown');
+        }
 
         if( !$this->validate($input, $targetLanguage) ) {
 
