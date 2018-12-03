@@ -9,3 +9,5 @@ Wrong layout's language -
 
 Support only en to ru for now.
 See tests for more info.
+
+#require PHP >=7.0
