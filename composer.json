@@ -1,0 +1,22 @@
+{
+  "name": "TrueGameover/php-keyboard-input-correction",
+  "description": "Correction of the keyboard input",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "TrueGameover",
+      "email": "truegameover@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "KeyboardInputCorrection\\": "src/"
+    }
+  }
+}
