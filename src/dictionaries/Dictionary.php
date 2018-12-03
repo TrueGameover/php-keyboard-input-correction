@@ -8,6 +8,11 @@
 
 namespace KeyboardInputCorrection\dictionaries;
 
+/**
+ * Class Dictionary
+ * All languages matrixes should be written here
+ * @package KeyboardInputCorrection\dictionaries
+ */
 class Dictionary {
 
     public static function en_ru(): array {
