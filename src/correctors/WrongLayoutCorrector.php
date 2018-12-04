@@ -10,6 +10,7 @@ namespace KeyboardInputCorrection\correctors;
 
 use KeyboardInputCorrection\Corrector;
 use KeyboardInputCorrection\dictionaries\Dictionary;
+use KeyboardInputCorrection\dictionaries\LayoutDictionary;
 use KeyboardInputCorrection\exceptions\CorrectorException;
 
 class WrongLayoutCorrector extends Corrector {
@@ -89,7 +90,7 @@ class WrongLayoutCorrector extends Corrector {
                 switch($toLanguage) {
 
                     case self::LANGUAGE_RU:
-                        return Dictionary::en_ru();
+                        return LayoutDictionary::en_ru();
                 }
                 break;
         }

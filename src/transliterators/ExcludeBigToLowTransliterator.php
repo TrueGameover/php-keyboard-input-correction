@@ -9,6 +9,7 @@
 namespace KeyboardInputCorrection\transliterators;
 
 use KeyboardInputCorrection\dictionaries\Dictionary;
+use KeyboardInputCorrection\dictionaries\TransliterationDictionary;
 use KeyboardInputCorrection\Transliterator;
 
 class ExcludeBigToLowTransliterator extends Transliterator {
@@ -56,14 +57,14 @@ class ExcludeBigToLowTransliterator extends Transliterator {
                     case self::TRANSLITERATE_FORWARD:
                         switch($standard) {
                             case self::STANDARD_ISO_9_1995_SYSTEM_B:
-                                return Dictionary::transliteration_ru_en_iso_9_1995_system_b();
+                                return TransliterationDictionary::transliteration_ru_en_iso_9_1995_system_b();
                         }
                         break;
 
                     case self::TRANSLITERATE_REVERSE:
                         switch($standard) {
                             case self::STANDARD_ISO_9_1995_SYSTEM_B:
-                                return Dictionary::transliteration_en_ru_iso_9_1995_system_b();
+                                return TransliterationDictionary::transliteration_en_ru_iso_9_1995_system_b();
                         }
                         break;
                 }
