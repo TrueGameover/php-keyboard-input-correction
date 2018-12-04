@@ -55,4 +55,11 @@ class KeyboardInputCorrectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('привет, я с марса', $transliterator->translit($transliterator->translit('привет, я с марса'), Transliterator::REVERSE));
         $this->assertEquals('как рассказала макаду, полет для нее стал "воплощением мечты" благодаря неограниченному количеству свободных кресел и угощений. летевшая к своим родственникам на самуи американка запечатлела полет на видео и сфотографировалась со стюардессами, которые обслуживали только ее одну.', $transliterator->translit($transliterator->translit('Как рассказала Макаду, полет для нее стал "воплощением мечты" благодаря неограниченному количеству свободных кресел и угощений. Летевшая к своим родственникам на Самуи американка запечатлела полет на видео и сфотографировалась со стюардессами, которые обслуживали только ее одну.'), Transliterator::REVERSE));
     }
+
+    public function testSimilarCorrection() {
+
+        $corrector = new \KeyboardInputCorrection\SimilarCorrector();
+
+        $this->assertEquals('АВСЕНКМОРТХасеорхк', $corrector->correct('ABCEHKMOPTXaceopxk'));
+    }
 }

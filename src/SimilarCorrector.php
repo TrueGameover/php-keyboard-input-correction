@@ -38,7 +38,7 @@ class SimilarCorrector extends InputCorrection {
 
         foreach( $table as $key => $value ) {
 
-            $modified = mb_eregi_replace($key, $value, $input);
+            $modified = mb_ereg_replace($key, $value, $input);
 
             if( $modified !== false ) {
 
