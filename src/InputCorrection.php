@@ -10,6 +10,8 @@ namespace KeyboardInputCorrection;
 
 abstract class InputCorrection {
 
+    const LANGUAGE_RU = 0;
+    const LANGUAGE_EN = 1;
     const DEFAULT_ENCODE = 'utf-8';
 
     /**
