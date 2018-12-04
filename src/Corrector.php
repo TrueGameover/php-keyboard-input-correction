@@ -11,9 +11,8 @@ namespace KeyboardInputCorrection;
 use KeyboardInputCorrection\exceptions\CorrectorException;
 use KeyboardInputCorrection\exceptions\UnsupportedSymbolException;
 
-abstract class Corrector {
+abstract class Corrector extends InputCorrection {
 
-    const DEFAULT_ENCODE = 'utf-8';
     const LANGUAGE_RU = 0;
     const LANGUAGE_EN = 1;
     protected $throwUnknownSymbols;
@@ -43,33 +42,6 @@ abstract class Corrector {
     abstract public function correct(string $input, int $targetLanguage = self::LANGUAGE_RU, string $encode = self::DEFAULT_ENCODE): string;
 
     /**
-     * Convert $input to utf8
-     * @param string $input
-     * @param string $sourceEncode
-     * @return string source encode
-     */
-    protected function prepare(string $input, string $sourceEncode = self::DEFAULT_ENCODE): string {
-
-        return mb_convert_encoding($input, 'utf-8', $sourceEncode);
-    }
-
-    /**
-     * Convert $input to $sourceEncode encode
-     * @param string $input
-     * @param string $sourceEncode
-     * @return string
-     */
-    protected function finish(string $input, string $sourceEncode): string {
-
-        if( empty($sourceEncode) ) {
-
-            throw new \InvalidArgumentException('source encode is empty');
-        }
-
-        return mb_convert_encoding($input, $sourceEncode, 'utf-8');
-    }
-
-    /**
      * Throws only if throwUnknownSymbols == true
      * @param array $conversionTable
      * @param string $char
@@ -91,15 +63,5 @@ abstract class Corrector {
         }
 
         return $ok ? $conversionTable[$char] : $char;
-    }
-
-    public function isEncodeSupported(string $encode): bool {
-
-        $encodes = array_filter(mb_list_encodings(), function($item) use ($encode) {
-
-            return mb_convert_case($item, MB_CASE_LOWER) === $encode || mb_convert_case($item, MB_CASE_UPPER);
-        });
-
-        return \count($encodes) > 0;
     }
 }
