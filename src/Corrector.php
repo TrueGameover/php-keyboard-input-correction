@@ -13,8 +13,6 @@ use KeyboardInputCorrection\exceptions\UnsupportedSymbolException;
 
 abstract class Corrector extends InputCorrection {
 
-    const LANGUAGE_RU = 0;
-    const LANGUAGE_EN = 1;
     protected $throwUnknownSymbols;
 
     public function __construct($throwUnsupportedSymbols = false) {
