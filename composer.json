@@ -1,8 +1,14 @@
 {
-  "name": "TrueGameover/php-keyboard-input-correction",
-  "description": "Correction of the keyboard input",
+  "name": "truegameover/php-keyboard-input-correction",
+  "description": "Correction of input from the keyboard. Allows validating & correcting wrong input from the keyboard's layout. E.g. writing something on ru layout when en is active.",
   "minimum-stability": "stable",
   "prefer-stable": true,
+  "keywords": [
+    "php",
+    "input",
+    "correction"
+  ],
+  "homepage": "https://github.com/TrueGameover/php-keyboard-input-correction",
   "authors": [
     {
       "name": "TrueGameover",
