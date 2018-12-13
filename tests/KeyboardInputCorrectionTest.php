@@ -61,5 +61,6 @@ class KeyboardInputCorrectionTest extends \PHPUnit\Framework\TestCase {
         $corrector = new \KeyboardInputCorrection\SimilarCorrector();
 
         $this->assertEquals('АВСЕНКМОРТХасеорхк', $corrector->correct('ABCEHKMOPTXaceopxk'));
+        $this->assertEquals('ABCEHKMOPTXaceopxk', $corrector->correct('АВСЕНКМОРТХасеорхк', \KeyboardInputCorrection\Corrector::LANGUAGE_EN));
     }
 }

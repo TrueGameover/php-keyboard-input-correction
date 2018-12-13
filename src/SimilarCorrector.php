@@ -55,6 +55,9 @@ class SimilarCorrector extends InputCorrection {
 
             case self::LANGUAGE_RU:
                 return SimilarDictionary::for_ru();
+
+            case self::LANGUAGE_EN:
+                return SimilarDictionary::for_en();
         }
 
         return [];
