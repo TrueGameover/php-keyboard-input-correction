@@ -63,4 +63,10 @@ class KeyboardInputCorrectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('АВСЕНКМОРТХасеорхк', $corrector->correct('ABCEHKMOPTXaceopxk'));
         $this->assertEquals('ABCEHKMOPTXaceopxk', $corrector->correct('АВСЕНКМОРТХасеорхк', \KeyboardInputCorrection\Corrector::LANGUAGE_EN));
     }
+
+    public function testWrongLayoutNumbers() {
+        $corrector = new \KeyboardInputCorrection\correctors\WrongLayoutCorrector();
+
+        $this->assertEquals('30 дней 10 ночей', $corrector->correct('30 lytq 10 yjxtq'));
+    }
 }

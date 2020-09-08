@@ -70,8 +70,7 @@ class WrongLayoutCorrector extends Corrector {
 
                 $char = mb_convert_case(mb_substr($input, $i, 1, $encode), MB_CASE_LOWER, $encode);
 
-                if( $char ) {
-
+                if (strlen($char) > 0) {
                     $result .= $this->processChar($table, $char);
                 }
             }
